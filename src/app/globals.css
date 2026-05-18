@@ -18,10 +18,12 @@ html {
   --background: #f7f7f7;
   --foreground: white;
 
-  --theme-primary: #2b7fff;
+  --theme-primary: #33cc33;
+  --theme-background: #020d1c;
 
   --text-primary: #000000;
   --text-secondary: #64748b;
+  --text-white: white;
 }
 
 @theme inline {
@@ -30,9 +32,11 @@ html {
   --color-foreground: var(--foreground);
 
   --color-theme-primary: var(--theme-primary);
+  --color-theme-background: var(--theme-background);
 
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
+  --color-text-white: var(--text-white);
 
   /* fonts */
   --font-sans: var(--font-geist-sans);
