@@ -8,6 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { authClient, gitHubSignIn, googleSignIn } from '@/lib/auth-client';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
+import { LuChevronDown } from 'react-icons/lu';
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -53,14 +54,14 @@ const RegisterPage = () => {
             Continue with Google
           </button>
 
-{
-          //   <button onClick={() => gitHubSignIn()} className="btn btn-outline border-zinc-200 hover:bg-zinc-100 w-full normal-case">
-          //   {/* <img src="/github-icon.svg" alt="GitHub" className="w-5 h-5 mr-2" /> */}
-          //   <FaGithub size={24} />
-          //   Continue with GitHub
-          // </button>
-}
-          
+          {
+            //   <button onClick={() => gitHubSignIn()} className="btn btn-outline border-zinc-200 hover:bg-zinc-100 w-full normal-case">
+            //   {/* <img src="/github-icon.svg" alt="GitHub" className="w-5 h-5 mr-2" /> */}
+            //   <FaGithub size={24} />
+            //   Continue with GitHub
+            // </button>
+          }
+
         </div>
 
         <div className="divider text-xs text-base-content/40 uppercase">or</div>
@@ -75,7 +76,7 @@ const RegisterPage = () => {
             <input
               name="name"
               type="text"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
           </div>
@@ -88,7 +89,7 @@ const RegisterPage = () => {
             <input
               name="photoUrl"
               type="text"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
           </div>
@@ -101,7 +102,7 @@ const RegisterPage = () => {
             <input
               name="email"
               type="email"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
           </div>
@@ -115,7 +116,7 @@ const RegisterPage = () => {
               <input
                 name="password"
                 type={isHiddenPass ? 'password' : 'text'}
-                className="input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 required
               />
               <button type="button" onClick={() => setIsHiddenPass(!isHiddenPass)} className="cursor-pointer absolute right-3 top-3 opacity-50">

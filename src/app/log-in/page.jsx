@@ -65,7 +65,7 @@ const LogInPage = () => {
             <input
               name="email"
               type="email"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               required
             />
           </div>
@@ -78,7 +78,7 @@ const LogInPage = () => {
               <input
                 name="password"
                 type={isHiddenPass ? 'password' : 'text'}
-                className="input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                 required
               />
               <button type="button" onClick={() => setIsHiddenPass(!isHiddenPass)} className="cursor-pointer absolute right-3 top-3 opacity-50">
