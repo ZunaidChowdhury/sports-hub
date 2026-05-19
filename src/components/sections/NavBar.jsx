@@ -38,7 +38,7 @@ const NavBar = () => {
         });
     }
     return (
-        <div className='sticky top-0 z-100 bg-theme-background text-text-white border-b border-zinc-200'>
+        <div className='sticky top-0 z-100 bg-theme-background text-text-white border-b border-zinc-900'>
             <div className="navbar bg-theme-background max-w-350 mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">

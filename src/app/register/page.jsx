@@ -125,7 +125,7 @@ const RegisterPage = () => {
           </div>
 
           {/* submit */}
-          <button type="submit" className="btn bg-blue-600 text-white hover:bg-blue-700 w-full mt-2">
+          <button type="submit" className="btn bg-green-600 text-white hover:bg-green-700 w-full mt-2">
             Register
           </button>
 
@@ -137,7 +137,7 @@ const RegisterPage = () => {
         </form>
 
         <p className="text-center text-sm mt-6 text-base-content/70">
-          Have an account? <Link href="/log-in" className="text-primary hover:underline">Log in</Link>
+          Have an account? <Link href="/log-in" className="text-theme-primary hover:underline">Log in</Link>
         </p>
       </div>
     </div>
