@@ -87,7 +87,7 @@ const LogInPage = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn bg-blue-600 text-white hover:bg-blue-700 w-full mt-2">
+          <button type="submit" className="btn bg-green-600 text-white hover:bg-green-700 w-full mt-2">
             Log in
           </button>
           {
@@ -98,7 +98,7 @@ const LogInPage = () => {
         </form>
 
         <p className="text-center text-sm mt-6 text-base-content/70">
-          No account? <Link href="/register" className="text-primary hover:underline">Register</Link>
+          No account? <Link href="/register" className="text-theme-primary hover:underline">Register</Link>
         </p>
       </div>
     </div>
