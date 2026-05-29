@@ -1,11 +1,21 @@
+import FeaturedFacilities from "@/components/sections/FeaturedFacilities";
 import Hero from "@/components/sections/Hero";
+import { getFacilities } from "@/lib/data";
 import { Button } from "@heroui/react";
 import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const facilities = await getFacilities();
+  // console.log('facilities: ', facilities);
+
   return (
     <div>
       <Hero />
+
+      {
+        facilities ? <FeaturedFacilities facilities={facilities} /> : null
+      }
+
       {/* <Image
       alt='whatever'
         src='/assets/design.png'

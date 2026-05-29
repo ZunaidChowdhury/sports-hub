@@ -65,7 +65,11 @@ const AddFacilityForm = ({ addFacility }) => {
             setError('Please fill in all required fields');
             return;
         }
+
         formData.owner = user?.email
+        formData.rating = parseFloat((Math.random() * 0.5 + 4.4).toFixed(1));
+        formData.ratedBy = Math.floor(Math.random() * 61) + 64;
+
         if (!formData.owner) {
             setError('Unable to add facility at the moment, check your internet.');
             return;
