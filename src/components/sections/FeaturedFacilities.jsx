@@ -7,7 +7,7 @@ import FacilityCard from '../cards/FacilityCard'
 
 const FeaturedFacilities = async ({ facilities }) => {
     const facilitiesData = facilities;
-    facilitiesData.sort((a, b) => b.rating - a.rating);
+    // facilitiesData.sort((a, b) => b.rating - a.rating);
     // console.log('courses', courses);
 
     return (
@@ -20,10 +20,10 @@ const FeaturedFacilities = async ({ facilities }) => {
                     actionBtnTitle='View All Facilities'
                     actionBtnUrl='/all-facilities' />
                 {/* content  */}
-                <div className=' grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 pt-8'>
+                <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8'>
                     {/* card */}
                     {
-                        facilitiesData.slice(0, 3).map(facility => <FacilityCard key={facility._id} facility={facility} />)
+                        facilitiesData.slice(0, 9).map(facility => <FacilityCard key={facility._id} facility={facility} />)
                     }
                 </div>
             </div>
