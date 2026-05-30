@@ -6,8 +6,8 @@ import { FaStar } from 'react-icons/fa'
 const FacilityCard = ({ facility }) => {
     // console.log('random value: ', Math.floor(Math.random() * 5) + 5)
     return (
-        <div className='relative group bg-foreground rounded-xl shadow-lg hover:shadow-2xl  overflow-hidden  
-                                hover:border-green-600 transition-all duration-300'>
+        <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg   overflow-hidden  
+                                 transition-all duration-300'>
 
             <div className="absolute top-3 right-3 rounded-full text-white bg-theme-primary badge badge-success z-10">{Math.floor(Math.random() * 7) + 6} Slots Left</div>
 

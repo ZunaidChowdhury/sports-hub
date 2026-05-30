@@ -11,7 +11,7 @@ const FeaturedFacilities = async ({ facilities }) => {
     // console.log('courses', courses);
 
     return (
-        <div className='pt-12 tablet:pt-20'>
+        <div className='py-12 tablet:py-20'>
             {/* container */}
             <div className='max-w-358 px-4 mx-auto'>
                 <SectionHeading
@@ -20,7 +20,7 @@ const FeaturedFacilities = async ({ facilities }) => {
                     actionBtnTitle='View All Facilities'
                     actionBtnUrl='/all-facilities' />
                 {/* content  */}
-                <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8'>
+                <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
                     {/* card */}
                     {
                         facilitiesData.slice(0, 9).map(facility => <FacilityCard key={facility._id} facility={facility} />)
