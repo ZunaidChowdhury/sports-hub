@@ -60,7 +60,7 @@ const stats = [
 export default function TrustStats() {
     return (
 
-        <section className="relative w-full bg-theme-background  py-24 text-white overflow-hidden">
+        <section className="relative w-full bg-theme-background  py-30 text-white overflow-hidden">
             <div className="max-w-358 px-6 mx-auto relative z-10">
 
                 {/* Header Section */}

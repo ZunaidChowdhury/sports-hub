@@ -3,13 +3,21 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FaStar } from 'react-icons/fa'
 
-const FacilityCard = ({ facility }) => {
-    // console.log('random value: ', Math.floor(Math.random() * 5) + 5)
-    return (
-        <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg   overflow-hidden  
-                                 transition-all duration-300'>
+// Generate a stable, deterministic number based on the facility id
+const stableSlots = (id) => {
+    if (!id) return 6
+    let sum = 0
+    for (let i = 0; i < id.length; i++) sum += id.charCodeAt(i)
+    return 6 + (sum % 7) // yields a number between 6 and 12
+}
 
-            <div className="absolute top-3 right-3 rounded-full text-white bg-theme-primary badge badge-success z-10">{Math.floor(Math.random() * 7) + 6} Slots Left</div>
+const FacilityCard = ({ facility }) => {
+    const slotsLeft = facility?.slotsLeft ?? stableSlots(String(facility?._id || ''))
+
+    return (
+        <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300'>
+
+            <div className="absolute top-3 right-3 rounded-full text-white bg-theme-primary badge badge-success z-10">{slotsLeft} Slots Left</div>
 
             <Link href={`/all-facilities/${facility._id}`} >
                 <Image
@@ -22,7 +30,7 @@ const FacilityCard = ({ facility }) => {
             </Link>
             <div className='p-6'>
                 {/* title  */}
-                <Link href={`/all-facilities/${facility.i_idd}`} >
+                <Link href={`/all-facilities/${facility._id}`} >
                     <h4 className='text-xl tablet:text-2xl font-bold line-clamp-1'>{facility.facilityName}</h4>
                 </Link>
 
@@ -51,7 +59,7 @@ const FacilityCard = ({ facility }) => {
                     className=" py-5 w-full rounded-lg flex items-center gap-2 btn 
                                 border-green-600 text-green-600 hover:bg-green-600 hover:text-foreground 
                                     transition-colors duration-300 text-lg font-semibold ">
-                    Bool Now
+                    Book Now
                 </Link>
             </div>
         </div>
