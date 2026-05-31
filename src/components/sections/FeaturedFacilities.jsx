@@ -11,7 +11,7 @@ const FeaturedFacilities = async ({ facilities }) => {
     // console.log('courses', courses);
 
     return (
-        <div className='py-12 tablet:py-20'>
+        <div className='py-12 tablet:py-30'>
             {/* container */}
             <div className='max-w-358 px-4 mx-auto'>
                 <SectionHeading

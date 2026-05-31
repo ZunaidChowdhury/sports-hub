@@ -38,7 +38,7 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
-        <section className="bg-foreground py-20">
+        <section className="bg-foreground py-30">
             <div className="max-w-358 px-4 mx-auto">
                 {/* Header Section */}
                 <SectionHeading

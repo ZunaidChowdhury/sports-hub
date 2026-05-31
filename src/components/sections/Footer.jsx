@@ -8,7 +8,7 @@ const Footer = () => {
     return (
 
         <footer className="text-foreground">
-            <div className="bg-theme-background py-12 tablet:py-20">
+            <div className="bg-theme-background py-12 tablet:py-30">
                 <div className="w-full max-w-358 px-4 mx-auto grid grid-cols-1  sm:grid-cols-[2fr_2fr]  md:grid-cols-[2.5fr_2fr_1fr] lg:grid-cols-[2.5fr_2fr_1fr_1fr_1fr] gap-16 ">
                     {/* col 1 */}
                     <div className="">
