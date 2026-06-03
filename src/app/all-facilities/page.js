@@ -1,33 +1,51 @@
-import AllFacilities from '@/components/sections/AllFacilities';
+import FacilityCard from '@/components/cards/FacilityCard';
+import SearchNFilter from '@/components/SearchNFilter';
 import SectionHeading from '@/components/shared/SectionHeading';
 import { getFacilities } from '@/lib/data';
 
-const sportTypes = ['football',
-    'badminton',
-    'swimming',
-    'tennis',
-    'bowling',
-    'basketball',
-    'baseball',
-    'volleyball',
-    'skating',
-    'climbing',
-    'other',
-]
+
+
+
 
 const AllFacilitiesPage = async ({ searchParams }) => {
-    const allFacilities = await getFacilities();
+    const sp = await searchParams;
+    // console.log('search: ', sp.search, ' ', 'type: ', sp.type)
+    const allFacilities = await getFacilities(sp.search, sp.type);
+    // console.log('allFacilities: ', allFacilities)
+
     return (
         <div className='py-12 tablet:py-30'>
             <div className='max-w-358 px-4 mx-auto'>
                 <SectionHeading
                     title='All Facilities' />
 
+                <SearchNFilter />
+
+                {/* Facility contents */}
                 {
-                    allFacilities && <AllFacilities initialFacilities={allFacilities} searchParams={searchParams} sportTypes={sportTypes} />
+                    allFacilities && (
+                        < div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-10'>
+                            {
+                                allFacilities.length > 0 ? (
+                                    allFacilities.map((facility) => (
+                                        <FacilityCard
+                                            key={facility._id}
+                                            facility={facility}
+                                        />
+                                    ))
+                                ) : (
+                                    <div className='col-span-full text-center py-12'>
+                                        <p className='text-text-secondary text-lg'>
+                                            No facilities found matching your criteria.
+                                        </p>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

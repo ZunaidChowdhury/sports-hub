@@ -2,22 +2,14 @@ import { ArrowRight, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaStar } from 'react-icons/fa'
-
-// Generate a stable, deterministic number based on the facility id
-const stableSlots = (id) => {
-    if (!id) return 6
-    let sum = 0
-    for (let i = 0; i < id.length; i++) sum += id.charCodeAt(i)
-    return 6 + (sum % 7) // yields a number between 6 and 12
-}
+import SlotsLeft from '../SlotsLeft'
 
 const FacilityCard = ({ facility }) => {
-    const slotsLeft = facility?.slotsLeft ?? stableSlots(String(facility?._id || ''))
 
     return (
         <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300'>
 
-            <div className="absolute top-3 right-3 rounded-full text-white bg-theme-primary badge badge-success z-10">{slotsLeft} Slots Left</div>
+            {/* <SlotsLeft /> */}
 
             <Link href={`/all-facilities/${facility._id}`} >
                 <Image
