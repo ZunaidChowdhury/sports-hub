@@ -3,8 +3,20 @@ export const getFeaturedFacilities = async () => {
     const data = await res.json();
     return data;
 }
-export const getFacilities = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities`);
+export const getFacilities = async (search = '', type = '') => {
+    const newSearchParams = new URLSearchParams()
+    if (search) newSearchParams.set('searchQuery', search)
+    if (type) newSearchParams.set('sportsType', type)
+
+    let res = null;
+    if (newSearchParams.toString()) {
+        res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities?${newSearchParams.toString()}`);
+    }
+    else {
+        res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities`);
+    }
+
     const data = await res.json();
+    // console.log('data: ', data);
     return data;
 }
