@@ -14,10 +14,12 @@ const AllFacilitiesPage = async ({ searchParams }) => {
     // console.log('allFacilities: ', allFacilities)
 
     return (
-        <div className='py-12 tablet:py-30'>
+        <div className='py-12 tablet:py-20'>
             <div className='max-w-358 px-4 mx-auto'>
                 <SectionHeading
-                    title='All Facilities' />
+                    title='All Facilities'
+                    description='All the facilities available for booking.'
+                    classNames='pb-10' />
 
                 <SearchNFilter />
 

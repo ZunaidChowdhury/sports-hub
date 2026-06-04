@@ -62,7 +62,8 @@ export default function WhyChooseUs() {
                 <SectionHeading
                     title='Why Choose Sports Hub'
                     description='Everything you need to book and play at the best sports facilities'
-                    dark={true} />
+                    dark={true}
+                    classNames='pb-16' />
 
                 {/* Content */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
