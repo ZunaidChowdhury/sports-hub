@@ -67,7 +67,8 @@ export default function TrustStats() {
                 <SectionHeading
                     title='Trusted by Thousands'
                     description='Join the growing community of sports enthusiasts'
-                    dark={true} />
+                    dark={true}
+                    classNames='pb-16' />
 
                 {/* Content Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

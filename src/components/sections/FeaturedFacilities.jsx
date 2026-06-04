@@ -17,8 +17,8 @@ const FeaturedFacilities = async ({ facilities }) => {
                 <SectionHeading
                     title='Featured Facilities'
                     subTitle='FEATURED'
-                    actionBtnTitle='View All Facilities'
-                    actionBtnUrl='/all-facilities' />
+                    actionTxtBtn={{text: 'View All Facilities', url: '/all-facilities'}}
+                    classNames='pb-16' />
                 {/* content  */}
                 <div className=' grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8'>
                     {/* card */}

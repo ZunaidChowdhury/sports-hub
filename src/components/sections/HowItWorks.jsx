@@ -72,6 +72,7 @@ export default function HowItWorks() {
                 <SectionHeading
                     title="How It Works"
                     description="Book your sports facility in 4 simple steps"
+                    classNames='pb-16'
                 />
 
                 {/* Content Grid */}

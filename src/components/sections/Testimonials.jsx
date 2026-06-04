@@ -44,6 +44,7 @@ export default function Testimonials() {
                 <SectionHeading
                     title="What Our Users Say"
                     description="Don't just take our word for it - hear from our community"
+                    classNames='pb-16'
                 />
 
                 {/* Content Grid */}
