@@ -27,14 +27,51 @@ export const addFacility = async (formData) => {
         // if (data.insertedId) {
         //     revalidatePath('/');
         // }
-        return { success: true };
+        return { success: true, data };
     }
     catch (error) {
-        console.log('Could not add facility, error: '.error)
+        console.log('Could not add facility, error: ', error);
         return { success: false, error: 'Could not add facility.' };
     }
 
 }
+
+
+export const updateFacility = async (formData) => {
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+    try {
+        const { id, ...updatedFacility } = formData;
+
+        if (!id) {
+            return { success: false, error: 'Facility ID is required' };
+        }
+
+        console.log('id: ', id, ' updatedFacility: ', updatedFacility)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/manage-facilities/edit/${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json',
+                authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(updatedFacility)
+        });
+        const data = await res.json();
+        console.log('data: ', data)
+
+        if (data.modifiedCount > 0) {
+            revalidatePath('/manage-facilities');
+            // redirect('/manage-facilities')
+            return { success: true };
+        }
+        return { success: false, error: 'Could not update facility' };
+    } catch (error) {
+        console.log('Could not update facility, error: ', error);
+        return { success: false, error: 'Could not update facility.' };
+    }
+}
+
 
 
 export const deleteFacility = async (facilityId) => {
@@ -52,7 +89,7 @@ export const deleteFacility = async (facilityId) => {
     const data = await res.json();
     console.log('deleteFacility/data: ', data)
     if (data.deletedCount > 0) {
-        console.log('deleteFacility/deletedCount: ', deletedCount)
+        console.log('deleteFacility/deletedCount: ', data.deletedCount)
         revalidatePath('/manage-facilities');
     }
     return data;

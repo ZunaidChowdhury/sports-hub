@@ -61,7 +61,7 @@ export default function ManageFacilityCard({ facility }) {
             </div>
 
             {/* Right Section: Action Controls */}
-            <ManageFacilityCardActions facilityId={facility._id} deleteFacility={deleteFacility} />
+            <ManageFacilityCardActions facility={facility} deleteFacility={deleteFacility} />
 
         </div>
     );

@@ -1,16 +1,18 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 
 import { authClient } from '@/lib/auth-client'
 
 
-const AddFacilityForm = ({ addFacility }) => {
+const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
     const { data } = authClient.useSession()
     const user = data?.user;
 
     const router = useRouter();
+    const isUpdateMode = !!facility;
+
     const [formData, setFormData] = useState({
         owner: user?.email,
         facilityName: '',
@@ -26,6 +28,37 @@ const AddFacilityForm = ({ addFacility }) => {
     const [error, setError] = useState(null);
     const [timeSlotInput, setTimeSlotInput] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // Initialize form data when facility is provided (update mode)
+    useEffect(() => {
+        if (facility) {
+            setFormData({
+                id: facility._id || facility.id,
+                owner: facility.owner || user?.email,
+                facilityName: facility.facilityName || '',
+                facilityType: facility.facilityType || '',
+                imageUpload: facility.imageUpload || '',
+                location: facility.location || '',
+                pricePerHour: facility.pricePerHour || '',
+                capacity: facility.capacity || '',
+                availableTimeSlots: facility.availableTimeSlots || [],
+                description: facility.description || ''
+            });
+        } else {
+            // Reset form for add mode
+            setFormData({
+                owner: user?.email,
+                facilityName: '',
+                facilityType: '',
+                imageUpload: '',
+                location: '',
+                pricePerHour: '',
+                capacity: '',
+                availableTimeSlots: [],
+                description: ''
+            });
+        }
+    }, [facility, user?.email]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,50 +99,83 @@ const AddFacilityForm = ({ addFacility }) => {
             return;
         }
 
-        formData.owner = user?.email
-        formData.rating = parseFloat((Math.random() * 0.5 + 4.4).toFixed(1));
-        formData.ratedBy = Math.floor(Math.random() * 61) + 64;
-
-        if (!formData.owner) {
-            setError('Unable to add facility at the moment, check your internet.');
+        if (!user?.email) {
+            setError('Unable to proceed at the moment, check your internet.');
             return;
         }
 
+        formData.owner = user.email
+        const date = new Date();
+        const submitData = { ...formData };
+
+        // Add mode
+        if (!isUpdateMode) {
+            submitData.createdAt = date;
+            submitData.updatedAt = date;
+            submitData.rating = parseFloat((Math.random() * 0.5 + 4.4).toFixed(1));
+            submitData.ratedBy = Math.floor(Math.random() * 61) + 64;
+        } else {
+            // Update mode
+            submitData.updatedAt = date;
+        }
+
         setLoading(true);
-        // console.log('Form Data:', formData);
-        const response = await addFacility(formData);
-        // console.log('response from action: ', response);
+        let response;
 
-        if (response.success) {
-            // revalidatePath('/');
-            toast.success("Facility added successfully!", { autoClose: 3000, });
-            // router.push('/');
-            // Reset form
-            setFormData({
-                facilityName: '',
-                facilityType: '',
-                imageUpload: '',
-                location: '',
-                pricePerHour: '',
-                capacity: '',
-                availableTimeSlots: [],
-                description: ''
-            });
-            setTimeSlotInput('');
-        }
-        else if (!response.success) {
-            toast.error("Could not add facility.", { autoClose: 3000, });
-        }
-        setLoading(false);
+        try {
+            if (!isUpdateMode && addFacility) {
+                response = await addFacility(submitData);
+            } else if (isUpdateMode && updateFacility) {
+                response = await updateFacility(submitData);
+            }
 
+            if (response?.success) {
+                router.push('/manage-facilities');
+                toast.success(
+                    isUpdateMode ? "Facility updated successfully!" : "Facility added successfully!", 
+                    { autoClose: 3000 }
+                );
+
+                // Reset form
+                setFormData({
+                    facilityName: '',
+                    facilityType: '',
+                    imageUpload: '',
+                    location: '',
+                    pricePerHour: '',
+                    capacity: '',
+                    availableTimeSlots: [],
+                    description: ''
+                });
+                setTimeSlotInput('');
+                setError(null);
+            } else {
+                toast.error(
+                    isUpdateMode ? "Could not update facility." : "Could not add facility.", 
+                    { autoClose: 3000 }
+                );
+            }
+        } catch (err) {
+            toast.error("An error occurred. Please try again.", { autoClose: 3000 });
+            console.error('Submit error:', err);
+        } finally {
+            setLoading(false);
+        }
     };
 
 
     return (
         <div className="flex items-center justify-center bg-base-200 px-4 py-12 tablet:py-20">
             <div className="card border-zinc-200 w-full max-w-5xl bg-base-100 shadow-lg p-8">
-                <h1 className="text-3xl font-bold text-base-content mb-2">Add Facility</h1>
-                <p className="text-sm text-base-content/70 mb-6">Fill in the details below to add a new facility to Sports Hub</p>
+                <h1 className="text-3xl font-bold text-base-content mb-2">
+                    {isUpdateMode ? 'Update Facility' : 'Add Facility'}
+                </h1>
+                <p className="text-sm text-base-content/70 mb-6">
+                    {isUpdateMode 
+                        ? 'Modify details below to update the facility on Sports Hub' 
+                        : 'Fill in the details below to add a new facility to Sports Hub'
+                    }
+                </p>
 
                 <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Facility Name */}
@@ -300,7 +366,10 @@ const AddFacilityForm = ({ addFacility }) => {
                         disabled={loading}
                         className="btn col-span-1 md:col-span-2 py-3 text-lg bg-green-600 text-white hover:bg-green-700 border-0 w-full disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
                     >
-                        {loading ? 'Adding Facility...' : 'Add Facility'}
+                        {loading 
+                            ? (isUpdateMode ? 'Updating Facility...' : 'Adding Facility...') 
+                            : (isUpdateMode ? 'Update Facility' : 'Add Facility')
+                        }
                     </button>
                 </form>
 
