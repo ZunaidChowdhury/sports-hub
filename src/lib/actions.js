@@ -48,7 +48,7 @@ export const updateFacility = async (formData) => {
             return { success: false, error: 'Facility ID is required' };
         }
 
-        console.log('id: ', id, ' updatedFacility: ', updatedFacility)
+        // console.log('id: ', id, ' updatedFacility: ', updatedFacility)
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/manage-facilities/edit/${id}`, {
             method: 'PATCH',
             headers: {
@@ -58,7 +58,7 @@ export const updateFacility = async (formData) => {
             body: JSON.stringify(updatedFacility)
         });
         const data = await res.json();
-        console.log('data: ', data)
+        // console.log('data: ', data)
 
         if (data.modifiedCount > 0) {
             revalidatePath('/manage-facilities');
@@ -93,4 +93,41 @@ export const deleteFacility = async (facilityId) => {
         revalidatePath('/manage-facilities');
     }
     return data;
+}
+
+
+export const addBooking = async (formData) => {
+
+    try {
+        const { token } = await auth.api.getToken({
+            headers: await headers()
+        })
+
+        // const newFacility = Object.fromEntries(formData);
+        const newBooking = formData;
+        console.log('client/actoins/newBooking: ', newBooking)
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/bookings`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(newBooking)
+        });
+
+
+        const data = await res.json();
+        console.log('client/actoins/data: ', data)
+
+
+        // if (data.insertedId) {
+        //     revalidatePath('/');
+        // }
+        return { success: true, data };
+    }
+    catch (error) {
+        console.log('Could not add booking, error: ', error);
+        return { success: false, error: 'Could not add booking.' };
+    }
+
 }
