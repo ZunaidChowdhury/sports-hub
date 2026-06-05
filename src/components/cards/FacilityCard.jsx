@@ -1,3 +1,5 @@
+'use client'
+
 import { ArrowRight, MapPin } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -9,7 +11,13 @@ const FacilityCard = ({ facility }) => {
     return (
         <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300'>
 
-            {/* <SlotsLeft /> */}
+            <div className="absolute top-3 left-3 p-4 capitalize rounded-full text-white text-base tracking-normal bg-green-600 border-none badge badge-success z-1">
+                {facility.facilityType}
+            </div>
+
+            <div className="absolute top-3 right-3 p-4 rounded-full text-text-primary text-base tracking-normal bg-zinc-200 border-none badge badge-success z-1">
+                {Math.floor(Math.random() * 7) + 6} Slots Left
+            </div>
 
             <Link href={`/all-facilities/${facility._id}`} >
                 <Image

@@ -140,7 +140,7 @@ const SearchNFilter = () => {
 
                 {/* Dropdown Menu */}
                 {isOpen && (
-                    <ul className="absolute z-10 w-full mt-1 bg-white border border-[#e4e4e7] rounded-sm shadow-lg max-h-60 overflow-auto focus:outline-none">
+                    <ul className="absolute z-2 w-full mt-1 bg-white border border-[#e4e4e7] rounded-sm shadow-lg max-h-60 overflow-auto focus:outline-none">
                         {/* Default Option */}
                         {/* <li
                             onClick={() => {

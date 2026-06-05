@@ -42,15 +42,7 @@ export const getUserAddedFacilities = async () => {
 
 export const getSpecificFacility = async (facilityId) => {
 
-    const { token } = await auth.api.getToken({
-        headers: await headers()
-    });
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/manage-facilities/edit/${facilityId}`, {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/all-facilities/${facilityId}`);
 
     const data = await res.json();
     return data;

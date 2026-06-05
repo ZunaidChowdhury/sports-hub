@@ -5,6 +5,20 @@ import { toast } from 'react-toastify';
 
 import { authClient } from '@/lib/auth-client'
 
+const sportTypes = [
+    // { name: 'All Sports Type', value: '' },
+    { name: 'Football', value: 'football' },
+    { name: 'Badminton', value: 'badminton' },
+    { name: 'Swimming', value: 'swimming' },
+    { name: 'Tennis', value: 'tennis' },
+    { name: 'Bowling', value: 'bowling' },
+    { name: 'Basketball', value: 'basketball' },
+    { name: 'Baseball', value: 'baseball' },
+    { name: 'Volleyball', value: 'volleyball' },
+    { name: 'Skating', value: 'skating' },
+    { name: 'Climbing', value: 'climbing' },
+    { name: 'Other', value: 'other' }
+]
 
 const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
     const { data } = authClient.useSession()
@@ -207,12 +221,11 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             required
                         >
                             <option disabled value="">Select a facility type</option>
-                            <option value="court">Court</option>
-                            <option value="field">Field</option>
-                            <option value="gym">Gym</option>
-                            <option value="pool">Pool</option>
-                            <option value="track">Track</option>
-                            <option value="other">Other</option>
+                            {
+                                sportTypes.map(type => (
+                                    <option key={type.value} value={type.value}>{type.name}</option>
+                                ))
+                            }
                         </select>
                     </div>
 
