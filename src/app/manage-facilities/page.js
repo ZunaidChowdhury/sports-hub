@@ -1,17 +1,14 @@
 import ManageFacilityCard from "@/components/cards/ManageFacilityCard";
 import SectionHeading from "@/components/shared/SectionHeading"
-import DeleteConfirmation from "@/components/ui/modals/DeleteConfirmation";
-import { auth } from "@/lib/auth";
+
 import { getUserAddedFacilities } from "@/lib/data";
 import { Plus } from "lucide-react"
-import { headers } from "next/headers";
+
 
 
 const ManageFacilitiesPage = async () => {
 
     const userAddedFacilities = await getUserAddedFacilities();
-    // console.log('userAddedFacilities', userAddedFacilities);
-
 
     return (
         <div className='py-12 tablet:py-20'>

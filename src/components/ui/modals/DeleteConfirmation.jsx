@@ -1,6 +1,6 @@
 'use client'
 
-const DeleteConfirmation = ({handleDeleteFacility}) => {
+const DeleteConfirmation = () => {
     return (
         <div>
             <dialog id="delete_confirmation_modal" className="modal">
@@ -13,7 +13,7 @@ const DeleteConfirmation = ({handleDeleteFacility}) => {
                             {/* if there is a button in form, it will close the modal */}
                             <button
                                 className="btn text-white bg-red-600 hover:bg-red-700"
-                                onClick={handleDeleteFacility}>
+                                >
                                 Delete
                             </button>
                             <button className="btn">Cancel</button>
