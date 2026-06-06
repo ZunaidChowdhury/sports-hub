@@ -42,6 +42,8 @@ const BookingForm = ({ facility, addBooking }) => {
             hours: duration,
             totalPrice,
             status: 'pending',
+            facilityImage: facility.imageUpload,
+            facilityLocation: facility.location,
             createdAt: new Date().toISOString()
         };
 

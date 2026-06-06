@@ -7,7 +7,7 @@ import { deleteFacility } from '@/lib/actions';
 
 export default function ManageFacilityCard({ facility }) {
     return (
-        <div className="group card card-side bg-base-100 border border-base-200 rounded-xl hover:border-green-600 transition-colors duration-300 shadow-sm p-6 items-center justify-between gap-4 w-full">
+        <div className="group card card-side bg-base-100 border border-base-200 rounded-xl hover:border-green-600 transition-colors duration-300 shadow-md p-6 items-center justify-between gap-4 w-full">
 
             {/* Left Section: Image and Details */}
             <div className="flex items-center gap-4 flex-1 min-w-0">
