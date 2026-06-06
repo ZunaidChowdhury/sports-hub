@@ -105,7 +105,7 @@ export const addBooking = async (formData) => {
 
         // const newFacility = Object.fromEntries(formData);
         const newBooking = formData;
-        console.log('client/actoins/newBooking: ', newBooking)
+        // console.log('client/actoins/newBooking: ', newBooking)
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/bookings`, {
             method: 'POST',
             headers: {
@@ -130,4 +130,34 @@ export const addBooking = async (formData) => {
         return { success: false, error: 'Could not add booking.' };
     }
 
+}
+
+export const updateBooking = async (formData) => {
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+
+    // console.log('client/actions/updateBooking/formData: ', formData)
+    const { _id: id, ...updatedBooking } = formData;
+    // console.log('client/actions/updateBooking/formData id: ', id, ' updatedBooking: ', updatedBooking)
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/bookings/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-type': 'application/json',
+            authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedBooking)
+    });
+
+    
+    const data = await res.json();
+    // console.log('client/actions/updateBooking/data: ', data)
+
+
+    // if (data.modifiedCount > 0) {
+    //     revalidatePath('/users');
+    //     redirect('/users');
+    // }
+    return data;
 }

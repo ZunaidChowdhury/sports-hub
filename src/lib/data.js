@@ -47,3 +47,19 @@ export const getSpecificFacility = async (facilityId) => {
     const data = await res.json();
     return data;
 }
+
+export const getUserBookings = async () => {
+
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/my-bookings`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
+
+    const data = await res.json();
+    return data;
+}
