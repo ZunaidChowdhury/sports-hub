@@ -119,7 +119,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
         }
 
         formData.owner = user.email
-        const date = new Date();
+        const date = new Date().toISOString();
         const submitData = { ...formData };
 
         // Add mode

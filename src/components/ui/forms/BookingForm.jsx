@@ -34,7 +34,7 @@ const BookingForm = ({ facility, addBooking }) => {
         }
 
         const bookingPayload = {
-            facilityId: facility._id || facility.id,
+            facilityId: facility._id,
             facilityName: facility.facilityName,
             userEmail: user.email,
             bookingDate,
@@ -51,12 +51,16 @@ const BookingForm = ({ facility, addBooking }) => {
             const response = await addBooking(bookingPayload);
             console.log('booking/success/response: ', response)
             if (response?.data.insertedId) {
-                toast.success('Booking confirmed successfully!', { autoClose: 3000 });
                 setBookingDate('');
                 setTimeSlot('');
                 setDuration(1);
                 setError(null);
-                router.refresh();
+                router.push('/my-bookings');
+                toast.success('Booking confirmed successfully!', { autoClose: 3000 });
+            } else if (response?.data.message) {
+                // already booked
+                router.push('/my-bookings');
+                toast.error(response?.data.message, { autoClose: 3000 });
             } else {
                 toast.error(response?.error || 'Could not complete booking. Please try again.', { autoClose: 3000 });
             }
@@ -161,7 +165,7 @@ const BookingForm = ({ facility, addBooking }) => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className={`btn bg-green-600 hover:bg-green-700 w-full text-white text-base py-6 font-bold tracking-wide mt-4 uppercase ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`btn bg-green-600 hover:bg-green-700 w-full text-white text-base py-6 rounded-xl font-bold tracking-wide mt-4 uppercase ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                     {loading ? 'Confirming...' : 'Confirm Booking'}
                 </button>

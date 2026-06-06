@@ -8,6 +8,7 @@ import { MdOutlineLocationOn, MdOutlinePeopleAlt } from 'react-icons/md';
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
     const facility = await getSpecificFacility(id);
+    // console.log('facility: ', facility)
 
     return (
         <div className="py-12 tablet:py-20">
