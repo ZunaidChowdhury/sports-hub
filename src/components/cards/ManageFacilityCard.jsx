@@ -11,7 +11,7 @@ export default function ManageFacilityCard({ facility }) {
 
             {/* Left Section: Image and Details */}
             <div className="flex items-center justify-between gap-4 flex-1 min-w-0">
-                <div>
+                <div className='flex items-center gap-4'>
                     {/* Thumbnail Image */}
                     <figure className="w-30 h-30 rounded-xl overflow-hidden shrink-0 bg-zinc-200 dark:bg-base-300 transition-all duration-300">
                         <Image
