@@ -14,7 +14,8 @@ html {
 
 }
 
-:root {
+/* 🌞 Light Theme */
+:root[data-theme="light"] {
   --background: #f7f7f7;
   --foreground: white;
 
@@ -22,6 +23,19 @@ html {
   --theme-background: #020d1c;
 
   --text-primary: #000000;
+  --text-secondary: #64748b;
+  --text-white: white;
+}
+
+/* 🌞 Light Theme */
+:root[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #000000;
+
+  --theme-primary: #33cc33;
+  --theme-background: #020d1c;
+
+  --text-primary: #ffffff;
   --text-secondary: #64748b;
   --text-white: white;
 }
