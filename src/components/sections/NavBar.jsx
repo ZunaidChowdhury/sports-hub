@@ -1,6 +1,6 @@
 'use client'
-import { GraduationCap, LogIn, LogOut, UserPlus } from 'lucide-react'
-import React from 'react'
+import { GraduationCap, LogIn, LogOut, UserPlus, Moon, Sun } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -27,6 +27,8 @@ const NavBar = () => {
     const pathname = usePathname()
     const { data, isPending } = authClient.useSession()
     const user = data?.user;
+    const [theme, setTheme] = useState('light')
+
     const handleLogOut = async () => {
         await authClient.signOut({
             fetchOptions: {
@@ -36,7 +38,25 @@ const NavBar = () => {
                 },
             },
         });
+
     }
+
+    useEffect(() => {
+        const savedTheme = window.localStorage.getItem('theme')
+        const currentTheme = savedTheme || document.documentElement.dataset.theme || 'light'
+        setTheme(currentTheme)
+        document.documentElement.dataset.theme = currentTheme
+    }, [])
+
+    useEffect(() => {
+        document.documentElement.dataset.theme = theme
+        window.localStorage.setItem('theme', theme)
+    }, [theme])
+
+    const toggleTheme = () => {
+        setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light')
+    }
+
     return (
         <div className='sticky top-0 z-100 bg-theme-background text-text-white border-b border-zinc-900'>
             <div className="navbar bg-theme-background max-w-350 mx-auto">
@@ -91,18 +111,26 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end ">
+                    <button
+                        type="button"
+                        onClick={toggleTheme}
+                        className="btn  text-theme-primary hover:text-theme-primary bg-transparent border-none  shadow-none mr-4"
+                        aria-label="Toggle theme"
+                    >
+                        {theme === 'light' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+                    </button>
                     {
                         isPending ? <><span className="loading loading-bars loading-md"></span></> : <>
                             {
                                 user ? <div className='flex items-center gap-3'>
                                     <p className='hidden tablet:inline-flex text-text-primary text-lg'>
-                                        <Link href='/user/profile'>
-                                            <span className='text-text-white text-lg font-semibold ml-2'>{user?.name}</span>
+                                        <Link href='#'>
+                                            <span className='text-text-white text-lg font-semibold ml-2'>{user?.name.split(' ')[0]}</span>
                                         </Link>
                                     </p>
                                     <div className='group relative inline-block'>
 
-                                        <Link href='/user/profile'>
+                                        <Link href='#'>
                                             <img
                                                 src={user?.image}
                                                 alt="Profile"
