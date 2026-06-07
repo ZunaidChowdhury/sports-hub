@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="bg-theme-background py-12 tablet:py-30">
                 <div className="w-full max-w-358 px-4 mx-auto grid grid-cols-1  sm:grid-cols-[2fr_2fr]  md:grid-cols-[2.5fr_2fr_1fr] lg:grid-cols-[2.5fr_2fr_1fr_1fr_1fr] gap-16 ">
                     {/* col 1 */}
-                    <div className="">
+                    <div className="text-white">
                         <Link href='/' className="flex items-center gap-2">
                             <Image
                                 src='/assets/sports-hub-logo.png'
@@ -27,15 +27,15 @@ const Footer = () => {
                         {/* social icons container  */}
                         <div className='flex items-center gap-3 mt-6'>
                             {/* tt  */}
-                            <a href='#' className='w-fit p-2.5 bg-background rounded-full'>
+                            <a href='#' className='w-fit p-2.5 bg-white rounded-full'>
                                 <img src={`/assets/twitter.png`} />
                             </a>
                             {/* insta  */}
-                            <a href='#' className='w-fit p-2.5 bg-background rounded-full'>
+                            <a href='#' className='w-fit p-2.5 bg-white rounded-full'>
                                 <img src={`/assets/instagram.png`} />
                             </a>
                             {/* fb  */}
-                            <a href='#' className='w-fit p-2.5 bg-background rounded-full'>
+                            <a href='#' className='w-fit p-2.5 bg-white rounded-full'>
                                 <img src={`/assets/facebook.png`} />
                             </a>
                         </div>

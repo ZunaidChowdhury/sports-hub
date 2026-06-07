@@ -80,7 +80,7 @@ export default function HowItWorks() {
                     {steps.map((step, index) => (
                         <div
                             key={index}
-                            className="card relative bg-base-100 border border-neutral-100 rounded-2xl shadow-md px-8 py-20 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg"
+                            className="card relative bg-foreground hover:-translate-y-1 transition-all duration-300 rounded-2xl shadow-md px-8 py-20 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg"
                         >
                             {/* Floating Step Number Badge */}
                             <div className={`absolute -top-4 left-1/2 -translate-x-1/2 text-base font-bold text-white w-12 h-12 flex items-center justify-center rounded-full ${step.badgeBg} shadow-xs z-10`}>
@@ -94,10 +94,10 @@ export default function HowItWorks() {
                             </div>
 
                             {/* Text Content Block */}
-                            <h3 className="text-xl font-bold text-neutral-900 mb-3">
+                            <h3 className="text-xl font-bold text-text-primary mb-3">
                                 {step.title}
                             </h3>
-                            <p className="text-sm text-neutral-400 leading-relaxed">
+                            <p className="text-sm text-text-secondary leading-relaxed">
                                 {step.description}
                             </p>
                         </div>

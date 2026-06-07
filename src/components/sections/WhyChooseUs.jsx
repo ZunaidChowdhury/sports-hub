@@ -70,7 +70,7 @@ export default function WhyChooseUs() {
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="card bg-[#0d1e3d]/40 border border-[#1e2d4a]/50 hover:bg-[#0d1e3d]/70 hover:border-[#2b3e64] hover:-translate-y-1 rounded-2xl shadow-md p-8 flex flex-col items-start transition-all duration-300 hover:shadow-lg"
+                            className="card bg-[#0d1e3d]/40 hover:-translate-y-1 rounded-xl shadow-md p-8 flex flex-col items-start transition-all duration-300 "
                         >
                             {/* Icon Wrapper */}
                             <div className={`p-3 rounded-xl text-white ${feature.iconBg} mb-6`}>

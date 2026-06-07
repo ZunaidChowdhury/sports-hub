@@ -1,9 +1,10 @@
 "use client";
 
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { ThemeContext } from '@/context/theme-context'
 
 import { authClient, gitHubSignIn, googleSignIn } from '@/lib/auth-client';
 import { useRouter } from "next/navigation";
@@ -12,6 +13,8 @@ import { LuChevronDown } from 'react-icons/lu';
 
 const RegisterPage = () => {
   const router = useRouter();
+  const { theme } = useContext(ThemeContext)
+  const isDark = theme === 'dark'
   const [isHiddenPass, setIsHiddenPass] = useState(true);
   const [error, setError] = useState(null);
 
@@ -40,17 +43,18 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className=" flex items-center justify-center bg-base-200 px-4 py-12 tablet:py-20">
-      <div className="card border-zinc-200 w-full max-w-md bg-foreground shadow-lg p-8">
-        <h1 className="text-xl tablet:text-2xl font-bold text-base-content">Create your account</h1>
-        <p className="text-sm text-base-content/60 mb-6">to continue to Sports Hub</p>
+    <div className={`flex items-center justify-center px-4 py-12 tablet:py-20 ${isDark ? 'bg-background text-text-white' : 'bg-base-200 text-text-primary'}`}>
+      <div className={`card border w-full max-w-md bg-foreground shadow-lg p-8 ${isDark ? 'border-zinc-800' : 'border-zinc-200'}`}>
+        <h1 className={`text-xl tablet:text-2xl font-bold ${isDark ? 'text-text-white' : 'text-text-primary'}`}>Create your account</h1>
+        <p className={`text-sm mb-6 ${isDark ? 'text-text-secondary' : 'text-base-content/60'}`}>to continue to Sports Hub</p>
 
         {/* Social Buttons */}
         <div className="flex flex-col gap-3 mb-6">
-          <button onClick={() => googleSignIn()} className="btn btn-outline border-zinc-200 hover:bg-zinc-100 w-full normal-case">
-            {/* <img src="/google-icon.svg" alt="Google" className="w-5 h-5 mr-2" /> */}
+          <button
+            onClick={() => googleSignIn()}
+            className={`btn btn-outline w-full normal-case ${isDark ? 'border-zinc-700 hover:bg-zinc-900 hover:text-white shadow-sm shadow-zinc-700' : 'border-zinc-200 hover:bg-zinc-100 hover:text-black shadow-sm shadow-zinc-200'}`}
+          >
             <FcGoogle size={24} />
-
             Continue with Google
           </button>
 
@@ -71,12 +75,12 @@ const RegisterPage = () => {
           {/* name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">Name</span>
+              <span className={`label-text font-semibold ${isDark ? 'text-text-white' : 'text-text-primary'}`}>Name</span>
             </label>
             <input
               name="name"
               type="text"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`}
               required
             />
           </div>
@@ -84,12 +88,12 @@ const RegisterPage = () => {
           {/* image url */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">Photo URL</span>
+              <span className={`label-text font-semibold ${isDark ? 'text-text-white' : 'text-text-primary'}`}>Photo URL</span>
             </label>
             <input
               name="photoUrl"
               type="text"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`}
               required
             />
           </div>
@@ -97,12 +101,12 @@ const RegisterPage = () => {
           {/* email */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">Email address</span>
+              <span className={`label-text font-semibold ${isDark ? 'text-text-white' : 'text-text-primary'}`}>Email address</span>
             </label>
             <input
               name="email"
               type="email"
-              className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className={`input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`}
               required
             />
           </div>
@@ -110,13 +114,13 @@ const RegisterPage = () => {
           {/* pass */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-semibold">Password</span>
+              <span className={`label-text font-semibold ${isDark ? 'text-text-white' : 'text-text-primary'}`}>Password</span>
             </label>
             <div className="relative">
               <input
                 name="password"
                 type={isHiddenPass ? 'password' : 'text'}
-                className="input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className={`input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`}
                 required
               />
               <button type="button" onClick={() => setIsHiddenPass(!isHiddenPass)} className="cursor-pointer absolute right-3 top-3 opacity-50">
@@ -126,7 +130,7 @@ const RegisterPage = () => {
           </div>
 
           {/* submit */}
-          <button type="submit" className="btn bg-green-600 text-white hover:bg-green-700 w-full mt-2">
+          <button type="submit" className={`btn bg-green-600 text-white hover:bg-green-700 w-full mt-2 border-none shadow-none`}>
             Register
           </button>
 
@@ -137,7 +141,7 @@ const RegisterPage = () => {
           }
         </form>
 
-        <p className="text-center text-sm mt-6 text-base-content/70">
+        <p className={`text-center text-sm mt-6 ${isDark ? 'text-text-secondary' : 'text-base-content/70'}`}>
           Have an account? <Link href="/log-in" className="text-theme-primary hover:underline">Log in</Link>
         </p>
       </div>

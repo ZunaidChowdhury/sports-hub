@@ -9,13 +9,13 @@ import SlotsLeft from '../SlotsLeft'
 const FacilityCard = ({ facility }) => {
 
     return (
-        <div className='relative group bg-foreground rounded-xl shadow-md hover:shadow-lg overflow-hidden transition-all duration-300'>
+        <div className='relative group bg-foreground  rounded-xl shadow-md hover:shadow-lg overflow-hidden  hover:-translate-y-1 transition-all duration-300'>
 
             <div className="absolute top-3 left-3 p-4 capitalize rounded-full text-white text-base tracking-normal bg-green-600 border-none badge badge-success z-1">
                 {facility.facilityType}
             </div>
 
-            <div className="absolute top-3 right-3 p-4 rounded-full text-text-primary text-base tracking-normal bg-zinc-200 border-none badge badge-success z-1">
+            <div className="absolute top-3 right-3 p-4 rounded-full text-black text-base tracking-normal bg-zinc-200 border-none badge badge-success z-1">
                 {Math.floor(Math.random() * 7) + 6} Slots Left
             </div>
 
@@ -31,7 +31,7 @@ const FacilityCard = ({ facility }) => {
             <div className='p-6'>
                 {/* title  */}
                 <Link href={`/all-facilities/${facility._id}`} >
-                    <h4 className='text-xl tablet:text-2xl font-bold line-clamp-1'>{facility.facilityName}</h4>
+                    <h4 className='text-text-primary text-xl tablet:text-2xl font-bold line-clamp-1'>{facility.facilityName}</h4>
                 </Link>
 
                 {/* location */}
@@ -48,7 +48,7 @@ const FacilityCard = ({ facility }) => {
 
                     <div className='flex items-center gap-2'>
                         <FaStar className='text-yellow-600 pb-0.5' />
-                        <span className='font-medium'>{facility.rating}</span>
+                        <span className='text-text-primary font-medium'>{facility.rating}</span>
                         <span className='text-text-secondary'>({facility.ratedBy})</span>
                     </div>
 
@@ -57,7 +57,7 @@ const FacilityCard = ({ facility }) => {
                 {/* book now button  */}
                 <Link href={`/all-facilities/${facility._id}`}
                     className=" py-5 w-full rounded-lg flex items-center gap-2 btn 
-                                border-green-600 text-green-600 hover:bg-green-600 hover:text-foreground 
+                                border-none shadow-none bg-green-600 hover:bg-green-700 text-text-white 
                                     transition-colors duration-300 text-lg font-semibold ">
                     Book Now
                 </Link>

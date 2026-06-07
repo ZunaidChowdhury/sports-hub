@@ -10,7 +10,7 @@ const SectionHeading = ({ title, subTitle, description, actionTxtBtn, actionProp
                 {
                     subTitle && <p className='uppercase font-semibold text-green-600 text-sm'>{subTitle}</p>
                 }
-                <h3 className={`text-2xl md:text-4xl font-semibold mb-3 ${dark === true ? 'text-text-white' : ''}`}>{title}</h3>
+                <h3 className={`text-2xl md:text-4xl font-semibold mb-3 ${dark === true ? 'text-text-white' : 'text-text-primary'}`}>{title}</h3>
                 {
                     description && <p className={`text-text-secondary text-lg ${dark === true ? 'text-text-white opacity-60' : ''}`}>
                         {description}
@@ -25,10 +25,8 @@ const SectionHeading = ({ title, subTitle, description, actionTxtBtn, actionProp
                 </Link>
             }
             {
-                actionProperBtn && <Link href={actionProperBtn.url}
-                    className="hidden tablet:flex rounded-lg items-center gap-2 mr-4 text-green-600 tablet: hover:text-green-700 transition-colors 
-                                duration-300 text-base font-semibold">
-                    <button className="btn  rounded-lg text-base font-semibold text-text-white bg-green-600 hover:bg-green-700 ">
+                actionProperBtn && <Link href={actionProperBtn.url}>
+                    <button className="btn rounded-lg text-base font-semibold text-text-white bg-green-600 hover:bg-green-700 border-none shadow-none">
                         <ActionProperBtnIcon className="w-5 h-5" />{actionProperBtn.text}
                     </button>
                 </Link>

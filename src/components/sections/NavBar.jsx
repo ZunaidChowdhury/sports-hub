@@ -1,9 +1,10 @@
 'use client'
-import { GraduationCap, LogIn, LogOut, UserPlus, Moon, Sun } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { Bookmark, ChevronDown, LayoutGrid, LogIn, LogOut, Moon, PlusCircle, Sun, UserPlus } from 'lucide-react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { ThemeContext } from '@/context/theme-context'
 
 import { useRouter } from "next/navigation";
 import { authClient } from '@/lib/auth-client'
@@ -27,7 +28,10 @@ const NavBar = () => {
     const pathname = usePathname()
     const { data, isPending } = authClient.useSession()
     const user = data?.user;
-    const [theme, setTheme] = useState('light')
+    const { theme, toggleTheme } = useContext(ThemeContext)
+    const [profileMenuOpen, setProfileMenuOpen] = useState(false)
+    const profileMenuRef = useRef(null)
+    const centerLinks = user ? navLinks : navLinks.filter((item) => item.path === '/' || item.path === '/all-facilities')
 
     const handleLogOut = async () => {
         await authClient.signOut({
@@ -42,20 +46,19 @@ const NavBar = () => {
     }
 
     useEffect(() => {
-        const savedTheme = window.localStorage.getItem('theme')
-        const currentTheme = savedTheme || document.documentElement.dataset.theme || 'light'
-        setTheme(currentTheme)
-        document.documentElement.dataset.theme = currentTheme
-    }, [])
+        setProfileMenuOpen(false)
+    }, [pathname])
 
     useEffect(() => {
-        document.documentElement.dataset.theme = theme
-        window.localStorage.setItem('theme', theme)
-    }, [theme])
+        const handleClickOutside = (event) => {
+            if (profileMenuOpen && profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+                setProfileMenuOpen(false)
+            }
+        }
 
-    const toggleTheme = () => {
-        setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light')
-    }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [profileMenuOpen])
 
     return (
         <div className='sticky top-0 z-100 bg-theme-background text-text-white border-b border-zinc-900'>
@@ -83,7 +86,7 @@ const NavBar = () => {
                             {
                                 user ? <button onClick={handleLogOut} className="mt-4 px-3 border-none shadow-none inline-flex md:hidden rounded-lg btn  text-base font-semibold text-text-primary">
                                     <LogOut />Log out</button> :
-                                    <li><Link href='/log-in' className="mt-4 px-3 border-none shadow-none rounded-lg xs:hidden w-full flex items-center justify-start gap-2 mr-4 btn text-base font-semibold text-text-primary text-foreground">
+                                    <li><Link href='/log-in' className="mt-4 px-3 border-none shadow-none rounded-lg xs:hidden w-full flex items-center justify-start gap-2 mr-4 btn text-base font-semibold text-text-primary">
                                         <LogIn />Log in</Link></li>
                             }
 
@@ -100,7 +103,7 @@ const NavBar = () => {
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 text-base font-semibold ">
                         {
-                            navLinks.map((item, i) => (
+                            centerLinks.map((item, i) => (
                                 <li key={i} className={`${pathname === item.path ? linkParentActiveStyle : ''}`}>
                                     <Link href={item.path} className={`${linkStyle} ${pathname === item.path ? linkActiveStyle : ''}`}>
                                         {item.name}
@@ -128,31 +131,73 @@ const NavBar = () => {
                                             <span className='text-text-white text-lg font-semibold ml-2'>{user?.name.split(' ')[0]}</span>
                                         </Link>
                                     </p>
-                                    <div className='group relative inline-block'>
-
-                                        <Link href='#'>
+                                    <div ref={profileMenuRef} className='relative inline-block'>
+                                        <button
+                                            type='button'
+                                            onClick={() => setProfileMenuOpen((prev) => !prev)}
+                                            className='relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-theme-surface p-0 shadow-sm transition hover:border-theme-primary focus:outline-none focus:ring-2 focus:ring-theme-primary'
+                                            aria-label='Open profile menu'
+                                        >
                                             <img
                                                 src={user?.image}
-                                                alt="Profile"
-                                                className='w-10 h-10 rounded-full object-cover hover:opacity-90 transition-opacity'
+                                                alt='Profile'
+                                                className='h-10 w-10 rounded-full object-cover'
                                             />
-                                        </Link>
+                                            <ChevronDown className='absolute -right-0.5 -bottom-0.5 h-4 w-4 text-theme-primary bg-theme-background rounded-full p-0.5' />
+                                        </button>
 
-                                        {
-                                            // <div className='hidden group-hover:block absolute top-full right-0 z-50'>
-                                            //     <div onClick={handleLogOut} className='bg-white shadow-xl border border-zinc-200 rounded-lg py-3 px-6 whitespace-nowrap text-base font-medium text-gray-700 hover:bg-gray-50 cursor-pointer'>
-                                            //         Log out
-                                            //     </div>
-                                            // </div>
-                                        }
+                                        {profileMenuOpen && (
+                                            <ul className='absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-zinc-800 bg-theme-background shadow-2xl'>
+                                                <li>
+                                                    <Link
+                                                        href='/my-bookings'
+                                                        onClick={() => setProfileMenuOpen(false)}
+                                                        className='flex items-center gap-3 px-4 py-3 text-base font-medium text-text-white hover:bg-zinc-900'
+                                                    >
+                                                        <Bookmark className='h-5 w-5 text-theme-primary' />
+                                                        My Bookings
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        href='/add-facility'
+                                                        onClick={() => setProfileMenuOpen(false)}
+                                                        className='flex items-center gap-3 px-4 py-3 text-base font-medium text-text-white hover:bg-zinc-900'
+                                                    >
+                                                        <PlusCircle className='h-5 w-5 text-theme-primary' />
+                                                        Add Facility
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        href='/manage-facilities'
+                                                        onClick={() => setProfileMenuOpen(false)}
+                                                        className='flex items-center gap-3 px-4 py-3 text-base font-medium text-text-white hover:bg-zinc-900'
+                                                    >
+                                                        <LayoutGrid className='h-5 w-5 text-theme-primary' />
+                                                        Manage Facilities
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <button
+                                                        onClick={() => {
+                                                            setProfileMenuOpen(false)
+                                                            handleLogOut()
+                                                        }}
+                                                        className='flex w-full items-center gap-3 px-4 py-3 text-left text-base font-medium text-text-white hover:bg-zinc-900 cursor-pointer'
+                                                    >
+                                                        <LogOut className='h-5 w-5 text-theme-primary' />
+                                                        Logout
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        )}
                                     </div>
-                                    <button onClick={handleLogOut} className="hidden md:inline-flex rounded-lg btn shadow-none border-none text-base font-semibold text-text-primary">
-                                        <LogOut />Log out</button>
 
                                 </div> : <>
-                                    <Link href='/log-in' className="hidden xs:flex items-center gap-2 rounded-lg  mr-4 btn text-base font-semibold text-text-primary shadow-none border-none">
+                                    <Link href='/log-in' className="hidden xs:flex items-center gap-2 rounded-lg  mr-4 btn text-base font-semibold text-black shadow-none border-none">
                                         <LogIn />Log in</Link>
-                                    <Link href='/register' className="rounded-lg hidden xl:flex items-center gap-2 mr-4 btn text-base font-semibold bg-green-600 shadow-none border-none hover:bg-green-700 text-foreground">
+                                    <Link href='/register' className="rounded-lg hidden xl:flex items-center gap-2 mr-4 btn text-base font-semibold bg-green-600 shadow-none border-none hover:bg-green-700 text-white">
                                         <UserPlus />Register</Link>
                                 </>
                             }

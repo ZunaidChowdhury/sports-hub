@@ -75,7 +75,7 @@ export default function TrustStats() {
                     {stats.map((stat, index) => (
                         <div
                             key={index}
-                            className="card group bg-[#0d1e3d]/40 border border-[#1e2d4a]/50 rounded-2xl p-8 pt-9 pb-9 flex flex-col items-center text-center transition-all duration-300 hover:bg-[#0d1e3d]/70 hover:border-[#2b3e64] hover:-translate-y-1"
+                            className="card group bg-[#0d1e3d]/40   rounded-xl p-8 py-9 flex flex-col items-center text-center transition-all duration-300  hover:-translate-y-1"
                         >
                             {/* Smooth Rounded Square Icon Base */}
                             <div className={`w-14 h-14 rounded-2xl text-white ${stat.iconBg} mb-7 flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-105`}>

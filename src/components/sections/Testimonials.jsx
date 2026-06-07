@@ -38,7 +38,7 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
-        <section className="bg-foreground py-30">
+        <section className="bg-background py-30">
             <div className="max-w-358 px-4 mx-auto">
                 {/* Header Section */}
                 <SectionHeading
@@ -52,7 +52,7 @@ export default function Testimonials() {
                     {testimonials.map((testimonial, index) => (
                         <div
                             key={index}
-                            className="card relative bg-base-100 border border-neutral-100 rounded-3xl p-8 pt-10 pb-9 flex flex-col justify-between shadow-md transition-all duration-300 hover:shadow-lg"
+                            className="card relative bg-foreground  rounded-xl p-8 pt-10 pb-9 flex flex-col justify-between shadow-md hover:-translate-y-1 transition-all duration-300"
                         >
 
                             <div className="absolute -top-5 left-6 w-10 h-10 rounded-full bg-theme-primary text-white flex items-center justify-center shadow-sm">
@@ -65,7 +65,7 @@ export default function Testimonials() {
                                         <StarIcon key={i} />
                                     ))}
                                 </div>
-                                <p className="text-[15px] italic font-medium text-neutral-500 leading-relaxed text-left mb-8">
+                                <p className="text-[15px] italic font-medium text-text-secondary leading-relaxed text-left mb-8">
                                     {testimonial.quote}
                                 </p>
                             </div>
@@ -74,13 +74,13 @@ export default function Testimonials() {
                                 <img
                                     src={testimonial.avatar}
                                     alt={testimonial.name}
-                                    className="w-12 h-12 rounded-full object-cover border border-neutral-100 shadow-2xs"
+                                    className="w-12 h-12 rounded-full object-cover shadow-2xs"
                                 />
                                 <div className="text-left">
-                                    <h4 className="text-base font-bold text-neutral-900 leading-tight">
+                                    <h4 className="text-base font-bold text-text-primary leading-tight">
                                         {testimonial.name}
                                     </h4>
-                                    <p className="text-xs font-medium text-neutral-400 mt-1">
+                                    <p className="text-xs font-medium text-text-secondary mt-1">
                                         {testimonial.role}
                                     </p>
                                 </div>
