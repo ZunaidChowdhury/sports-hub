@@ -6,6 +6,7 @@ import "./globals.css";
 import NavBar from "@/components/sections/NavBar";
 import { Bounce, ToastContainer } from "react-toastify";
 import Footer from '@/components/sections/Footer';
+import { ThemeProvider } from '@/context/theme-context';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,22 +33,24 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background">
-        <NavBar />
-        {children}
-        <Footer/>
-        <ToastContainer
-          position="top-center"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-          transition={Bounce}
-        />
+        <ThemeProvider>
+          <NavBar />
+          {children}
+          <Footer/>
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

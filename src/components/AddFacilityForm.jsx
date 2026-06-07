@@ -1,7 +1,8 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
+import { ThemeContext } from '@/context/theme-context'
 
 import { authClient } from '@/lib/auth-client'
 
@@ -21,11 +22,19 @@ const sportTypes = [
 ]
 
 const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
+    const { theme } = useContext(ThemeContext)
+    const isDark = theme === 'dark'
     const { data } = authClient.useSession()
     const user = data?.user;
 
     const router = useRouter();
     const isUpdateMode = !!facility;
+    const inputStyle = `focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`
+    const cardBorderClass = isDark ? 'border-zinc-800' : 'border-zinc-200'
+    const sectionTextClass = isDark ? 'text-text-secondary' : 'text-base-content/70'
+    const labelTextClass = isDark ? 'text-text-white' : 'text-text-primary'
+    const pageBgClass = isDark ? 'bg-background text-text-white' : 'bg-base-200 text-text-primary'
+    const cardBgClass = isDark ? 'bg-foreground' : 'bg-foreground'
 
     const [formData, setFormData] = useState({
         owner: user?.email,
@@ -179,12 +188,12 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
 
 
     return (
-        <div className="flex items-center justify-center bg-base-200 px-4 py-12 tablet:py-20">
-            <div className="card border-zinc-200 w-full max-w-5xl bg-base-100 shadow-lg p-8">
-                <h1 className="text-3xl font-bold text-base-content mb-2">
+        <div className={`flex items-center justify-center px-4 py-12 tablet:py-20 ${pageBgClass}`}>
+            <div className={`card ${cardBorderClass} w-full max-w-5xl ${cardBgClass} shadow-lg p-8`}>
+                <h1 className={`text-3xl font-bold ${isDark ? 'text-text-white' : 'text-text-primary'} mb-2`}>
                     {isUpdateMode ? 'Update Facility' : 'Add Facility'}
                 </h1>
-                <p className="text-sm text-base-content/70 mb-6">
+                <p className={`text-sm ${sectionTextClass} mb-6`}>
                     {isUpdateMode 
                         ? 'Modify details below to update the facility on Sports Hub' 
                         : 'Fill in the details below to add a new facility to Sports Hub'
@@ -195,7 +204,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Facility Name */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Facility Name <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Facility Name <span className="text-error">*</span></span>
                         </label>
                         <input
                             name="facilityName"
@@ -203,7 +212,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             placeholder="e.g., Basketball Court"
                             value={formData.facilityName}
                             onChange={handleChange}
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`input input-bordered w-full ${inputStyle}`}
                             required
                         />
                     </div>
@@ -211,13 +220,13 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Facility Type Dropdown */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Facility Type <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Facility Type <span className="text-error">*</span></span>
                         </label>
                         <select
                             name="facilityType"
                             value={formData.facilityType}
                             onChange={handleChange}
-                            className="select select-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`select select-bordered w-full ${inputStyle}`}
                             required
                         >
                             <option disabled value="">Select a facility type</option>
@@ -232,7 +241,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Image Upload */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Image Upload <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Image Upload <span className="text-error">*</span></span>
                         </label>
                         <input
                             name="imageUpload"
@@ -240,7 +249,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             placeholder="Enter image URL or path"
                             value={formData.imageUpload}
                             onChange={handleChange}
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`input input-bordered w-full ${inputStyle}`}
                             required
                         />
                     </div>
@@ -248,7 +257,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Location */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Location <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Location <span className="text-error">*</span></span>
                         </label>
                         <input
                             name="location"
@@ -256,7 +265,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             placeholder="e.g., Downtown Sports Complex"
                             value={formData.location}
                             onChange={handleChange}
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`input input-bordered w-full ${inputStyle}`}
                             required
                         />
                     </div>
@@ -264,7 +273,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Price Per Hour */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Price Per Hour <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Price Per Hour <span className="text-error">*</span></span>
                         </label>
                         <input
                             name="pricePerHour"
@@ -272,7 +281,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             placeholder="e.g., 50"
                             value={formData.pricePerHour}
                             onChange={handleChange}
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`input input-bordered w-full ${inputStyle}`}
                             step="0.01"
                             min="0"
                             required
@@ -282,7 +291,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Capacity */}
                     <div className="form-control">
                         <label className="label">
-                            <span className="label-text font-semibold">Capacity <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Capacity <span className="text-error">*</span></span>
                         </label>
                         <input
                             name="capacity"
@@ -290,7 +299,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                             placeholder="e.g., 20"
                             value={formData.capacity}
                             onChange={handleChange}
-                            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                            className={`input input-bordered w-full ${inputStyle}`}
                             min="1"
                             required
                         />
@@ -299,7 +308,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Available Time Slots */}
                     <div className="form-control md:col-span-2">
                         <label className="label">
-                            <span className="label-text font-semibold">Available Time Slots <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Available Time Slots <span className="text-error">*</span></span>
                         </label>
                         <div className="flex gap-2">
                             <input
@@ -313,7 +322,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                                         handleAddTimeSlot();
                                     }
                                 }}
-                                className="input input-bordered flex-1 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                className={`input input-bordered flex-1 ${inputStyle}`}
                             />
                             <button
                                 type="button"
@@ -350,14 +359,14 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     {/* Description */}
                     <div className="form-control md:col-span-2">
                         <label className="label">
-                            <span className="label-text font-semibold">Description <span className="text-error">*</span></span>
+                            <span className={`label-text font-semibold ${labelTextClass}`}>Description <span className="text-error">*</span></span>
                         </label>
                         <textarea
                             name="description"
                             placeholder="Enter facility description..."
                             value={formData.description}
                             onChange={handleChange}
-                            className="textarea textarea-bordered w-full h-24 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                            className={`textarea textarea-bordered w-full h-24 ${inputStyle} resize-none`}
                             required
                         />
                     </div>
@@ -377,7 +386,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn col-span-1 md:col-span-2 py-3 text-lg bg-green-600 text-white hover:bg-green-700 border-0 w-full disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400"
+                        className="btn col-span-1 md:col-span-2 py-3 text-lg bg-green-600 text-white hover:bg-green-700 border-0 w-full disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:bg-gray-400 border-none shadow-none"
                     >
                         {loading 
                             ? (isUpdateMode ? 'Updating Facility...' : 'Adding Facility...') 
