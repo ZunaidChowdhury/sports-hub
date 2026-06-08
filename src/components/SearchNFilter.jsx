@@ -93,7 +93,7 @@ const SearchNFilter = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                         type='text'
-                        placeholder='Search facilities by name...'
+                        placeholder='Search...'
                         className={`focus:border-green-600 transition-colors duration-300 input input-bordered w-full pl-12 pr-28 text-lg focus:outline-none focus:ring-0 focus-visible:outline-none ${theme === 'dark' ? 'bg-theme-background border-zinc-800 text-text-white' : 'bg-white border-[#e4e4e7] text-text-primary'}`}
                     />
 
@@ -108,7 +108,7 @@ const SearchNFilter = () => {
             </div>
 
             {/* Filter */}
-            <div ref={dropdownRef} className="relative w-60 text-base capitalize">
+            <div ref={dropdownRef} className="relative w-full md:w-60 text-base capitalize">
                 <div className="dropdown">
                     <button
                         type="button"

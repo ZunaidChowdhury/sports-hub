@@ -25,7 +25,7 @@ const SectionHeading = ({ title, subTitle, description, actionTxtBtn, actionProp
                 </Link>
             }
             {
-                actionProperBtn && <Link href={actionProperBtn.url}>
+                actionProperBtn && <Link href={actionProperBtn.url} className='hidden md:inline-block'>
                     <button className="btn rounded-lg text-base font-semibold text-text-white bg-green-600 hover:bg-green-700 border-none shadow-none">
                         <ActionProperBtnIcon className="w-5 h-5" />{actionProperBtn.text}
                     </button>
