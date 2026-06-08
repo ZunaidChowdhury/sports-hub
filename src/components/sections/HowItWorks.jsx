@@ -66,21 +66,21 @@ const steps = [
 
 export default function HowItWorks() {
     return (
-        <section className="py-30">
+        <section className="py-12 tablet:py-30">
             <div className="max-w-358 px-4 mx-auto">
                 {/* Header Section */}
                 <SectionHeading
                     title="How It Works"
                     description="Book your sports facility in 4 simple steps"
-                    classNames='pb-16'
+                    classNames='pb-8 tablet:pb-16'
                 />
 
                 {/* Content Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {steps.map((step, index) => (
                         <div
                             key={index}
-                            className="card relative bg-foreground hover:-translate-y-1 transition-all duration-300 rounded-2xl shadow-md px-8 py-20 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg"
+                            className="card relative bg-foreground hover:-translate-y-1 rounded-2xl shadow-md px-8 py-20 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg"
                         >
                             {/* Floating Step Number Badge */}
                             <div className={`absolute -top-4 left-1/2 -translate-x-1/2 text-base font-bold text-white w-12 h-12 flex items-center justify-center rounded-full ${step.badgeBg} shadow-xs z-10`}>

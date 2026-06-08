@@ -38,17 +38,17 @@ const testimonials = [
 
 export default function Testimonials() {
     return (
-        <section className="bg-background py-30">
+        <section className="bg-background py-12 tablet:py-30">
             <div className="max-w-358 px-4 mx-auto">
                 {/* Header Section */}
                 <SectionHeading
                     title="What Our Users Say"
                     description="Don't just take our word for it - hear from our community"
-                    classNames='pb-16'
+                    classNames='pb-8 tablet:pb-16'
                 />
 
                 {/* Content Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {testimonials.map((testimonial, index) => (
                         <div
                             key={index}

@@ -60,18 +60,18 @@ const stats = [
 export default function TrustStats() {
     return (
 
-        <section className="relative w-full bg-theme-background  py-30 text-white overflow-hidden">
-            <div className="max-w-358 px-6 mx-auto relative z-10">
+        <section className="relative w-full bg-theme-background  py-12 tablet:py-30 text-white overflow-hidden">
+            <div className="max-w-358 px-6 mx-auto relative">
 
                 {/* Header Section */}
                 <SectionHeading
                     title='Trusted by Thousands'
                     description='Join the growing community of sports enthusiasts'
                     dark={true}
-                    classNames='pb-16' />
+                    classNames='pb-8 tablet:pb-16' />
 
                 {/* Content Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {stats.map((stat, index) => (
                         <div
                             key={index}

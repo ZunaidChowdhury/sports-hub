@@ -84,15 +84,18 @@ const NavBar = () => {
                             }
 
                             {
-                                user ? <button onClick={handleLogOut} className="mt-4 px-3 border-none shadow-none inline-flex md:hidden rounded-lg btn  text-base font-semibold text-text-primary">
-                                    <LogOut />Log out</button> :
-                                    <li><Link href='/log-in' className="mt-4 px-3 border-none shadow-none rounded-lg xs:hidden w-full flex items-center justify-start gap-2 mr-4 btn text-base font-semibold text-text-primary">
+                                user ? (
+                                    // <button onClick={handleLogOut} className="mt-4 px-3 border-none shadow-none inline-flex md:hidden rounded-lg btn  text-base font-semibold text-text-primary">
+                                    //     <LogOut />Log out</button> 
+                                    null
+                                ) :
+                                    <li><Link href='/log-in' className="mt-4 px-3 border-none shadow-none text-black rounded-lg xs:hidden w-full flex items-center justify-start gap-2 mr-4 btn text-base font-semibold">
                                         <LogIn />Log in</Link></li>
                             }
 
                         </ul>
                     </div>
-                    <Link href='/' className="flex items-center gap-2">
+                    <Link href='/' className="flex items-center gap-2 shrink-0">
                         <Image
                             src='/assets/sports-hub-logo.png'
                             alt='Sports Hub logo'
@@ -117,7 +120,7 @@ const NavBar = () => {
                     <button
                         type="button"
                         onClick={toggleTheme}
-                        className="btn  text-theme-primary hover:text-theme-primary bg-transparent border-none  shadow-none mr-4"
+                        className="hidden xs:inline-block btn text-theme-primary hover:text-theme-primary bg-transparent border-none  shadow-none  xs:mr-4"
                         aria-label="Toggle theme"
                     >
                         {theme === 'light' ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
