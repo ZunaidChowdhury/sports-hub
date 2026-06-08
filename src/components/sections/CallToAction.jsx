@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function CallToAction() {
     return (
-        <section className="relative w-full bg-theme-background bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[#0a274c] via-[#04132d] to-[#030f26] py-30 text-white overflow-hidden text-center">
+        <section className="relative w-full bg-theme-background bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[#0a274c] via-[#04132d] to-[#030f26] py-12 tablet:py-30 text-white overflow-hidden text-center">
 
             <div className="absolute inset-0 opacity-30 bg-[linear-gradient(to_right,#1e2d4a_1px,transparent_1px),linear-gradient(to_bottom,#1e2d4a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 

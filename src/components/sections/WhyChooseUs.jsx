@@ -56,17 +56,17 @@ const features = [
 export default function WhyChooseUs() {
 
     return (
-        <section className="bg-theme-background py-30 ">
+        <section className="bg-theme-background py-12 tablet:py-30 ">
             <div className='max-w-358 px-4 mx-auto'>
                 {/* Header Section */}
                 <SectionHeading
                     title='Why Choose Sports Hub'
                     description='Everything you need to book and play at the best sports facilities'
                     dark={true}
-                    classNames='pb-16' />
+                    classNames='pb-8 tablet:pb-16' />
 
                 {/* Content */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {features.map((feature, index) => (
                         <div
                             key={index}
