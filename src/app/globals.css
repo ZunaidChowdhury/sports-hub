@@ -14,6 +14,20 @@ html {
 
 }
 
+
+
+:root {
+  --background: #f7f7f7;
+  --foreground: white;
+
+  --theme-primary: #33cc33;
+  --theme-background: #020d1c;
+
+  --text-primary: #000000;
+  --text-secondary: #64748b;
+  --text-white: white;
+}
+
 /* 🌞 Light Theme */
 :root[data-theme="light"] {
   --background: #f7f7f7;

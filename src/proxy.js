@@ -15,5 +15,5 @@ export async function proxy (request) {
 
 export const config = {
     // requires sign in for listed pages.
-    matcher: ['/my-bookings', '/add-facility', '/manage-facilities'],
+    matcher: ['/my-bookings', '/add-facility', '/manage-facilities', '/all-facilities/:path'],
 }

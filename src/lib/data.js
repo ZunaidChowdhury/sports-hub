@@ -6,6 +6,7 @@ export const getFeaturedFacilities = async () => {
     const data = await res.json();
     return data;
 }
+
 export const getFacilities = async (search = '', type = '') => {
     const newSearchParams = new URLSearchParams()
     if (search) newSearchParams.set('searchQuery', search)
@@ -42,7 +43,15 @@ export const getUserAddedFacilities = async () => {
 
 export const getSpecificFacility = async (facilityId) => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/all-facilities/${facilityId}`);
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/all-facilities/${facilityId}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    });
 
     const data = await res.json();
     return data;

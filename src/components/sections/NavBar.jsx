@@ -150,7 +150,13 @@ const NavBar = () => {
                                         </button>
 
                                         {profileMenuOpen && (
-                                            <ul className='absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl border border-zinc-800 bg-theme-background shadow-2xl'>
+                                            <ul className='absolute right-0 top-full mt-2 w-65 overflow-hidden rounded-2xl border border-zinc-800 bg-theme-background shadow-2xl'>
+                                                <li className='border-b border-zinc-800 px-4 py-3'>
+                                                    <p className='text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400'>Signed in as</p>
+                                                    <p className='mt-1 break-all text-sm font-medium text-text-white'>
+                                                        {user?.email || 'your account'}
+                                                    </p>
+                                                </li>
                                                 <li>
                                                     <Link
                                                         href='/my-bookings'
