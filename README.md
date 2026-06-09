@@ -90,7 +90,7 @@ Authenticated users can:
 
 ### Frontend
 
-* Next.js 16.2.4
+* Next.js 16.2.4 ( Implemented Next.js **SSR, SSG, ISR** )
 * React 19.2.4
 * JavaScript
 * Tailwind CSS v4

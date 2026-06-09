@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { auth } from "./auth";
 
 export const getFeaturedFacilities = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/featured-facilities`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/featured-facilities`, {cache: 'force-cache'});
     const data = await res.json();
     return data;
 }
@@ -17,7 +17,7 @@ export const getFacilities = async (search = '', type = '') => {
         res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities?${newSearchParams.toString()}`);
     }
     else {
-        res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities`);
+        res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities`, {next: {revalidate: 3600}});
     }
 
     const data = await res.json();
@@ -43,14 +43,8 @@ export const getUserAddedFacilities = async () => {
 
 export const getSpecificFacility = async (facilityId) => {
 
-    const { token } = await auth.api.getToken({
-        headers: await headers()
-    });
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/all-facilities/${facilityId}`, {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
+        next: { revalidate: 3600 } // 1 hr
     });
 
     const data = await res.json();

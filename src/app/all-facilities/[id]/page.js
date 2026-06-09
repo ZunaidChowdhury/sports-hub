@@ -1,3 +1,4 @@
+import AvailableSlotsDP from '@/components/cards/AvailableSlotsDP';
 import BookingForm from '@/components/ui/forms/BookingForm';
 import { addBooking } from '@/lib/actions';
 import { getFacilities, getSpecificFacility } from '@/lib/data';
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
 }
 
 // Revalidate this page every hour (in seconds)
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -60,10 +61,7 @@ const FacilityDetailsPage = async ({ params }) => {
                             <span className="text-lg font-semibold tracking-normal mt-1 text-text-primary">${facility.pricePerHour}/hour</span>
                         </div>
 
-                        <div className="card bg-foreground shadow-md p-6 rounded-xl flex flex-col justify-center">
-                            <span className="text-sm font-medium uppercase flex items-center gap-2 text-text-secondary"><LuClock4 className='w-5 h-5 text-theme-primary' /> Slots</span>
-                            <span className="text-lg font-semibold tracking-normal mt-1 text-text-primary">{Math.floor(Math.random() * 7) + 6} available</span>
-                        </div>
+                        <AvailableSlotsDP />
                     </div>
 
                     {/* Description Section */}
