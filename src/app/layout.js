@@ -8,6 +8,8 @@ import { Bounce, ToastContainer } from "react-toastify";
 import Footer from '@/components/sections/Footer';
 import { ThemeProvider } from '@/context/theme-context';
 
+import { Analytics } from '@vercel/analytics/react';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -36,7 +38,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <NavBar />
           {children}
-          <Footer/>
+          <Footer />
           <ToastContainer
             position="top-center"
             autoClose={3000}
@@ -51,6 +53,7 @@ export default function RootLayout({ children }) {
             transition={Bounce}
           />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
