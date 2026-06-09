@@ -16,14 +16,39 @@ const RegisterPage = () => {
   const { theme } = useContext(ThemeContext)
   const isDark = theme === 'dark'
   const [isHiddenPass, setIsHiddenPass] = useState(true);
+  const [password, setPassword] = useState('');
+  const [passwordValidations, setPasswordValidations] = useState({
+    length: false,
+    uppercase: false,
+    lowercase: false,
+  });
   const [error, setError] = useState(null);
+
+  const validatePassword = (value) => ({
+    length: value.length >= 6,
+    uppercase: /[A-Z]/.test(value),
+    lowercase: /[a-z]/.test(value),
+  });
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    setPasswordValidations(validatePassword(value));
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const { name, email, photoUrl, password } = Object.fromEntries(formData);
+    const { name, email, photoUrl } = Object.fromEntries(formData);
+    const validations = validatePassword(password);
+    setPasswordValidations(validations);
 
-    const { data, error } = await authClient.signUp.email({
+    if (!validations.length || !validations.uppercase || !validations.lowercase) {
+      setError({ message: 'Password must be at least 6 characters and include both uppercase and lowercase letters.' });
+      return;
+    }
+
+    const { data, error: authError } = await authClient.signUp.email({
       name,
       email,
       password,
@@ -37,8 +62,8 @@ const RegisterPage = () => {
       router.push('/log-in');
     }
 
-    if (error) {
-      setError(error);
+    if (authError) {
+      setError(authError);
     }
   }
 
@@ -68,7 +93,7 @@ const RegisterPage = () => {
 
         </div>
 
-        <div className="divider text-xs text-base-content/40 uppercase">or</div>
+        <div className={`divider  text-xs uppercase  text-text-primary/50 ${isDark ? 'before:bg-white/30 after:bg-white/30' : ''}`} >or</div>
 
         {/* Registration Form using Server Action */}
         <form onSubmit={handleRegister} className="space-y-4">
@@ -120,6 +145,8 @@ const RegisterPage = () => {
               <input
                 name="password"
                 type={isHiddenPass ? 'password' : 'text'}
+                value={password}
+                onChange={handlePasswordChange}
                 className={`input input-bordered w-full pr-10 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent ${isDark ? 'bg-theme-background border-zinc-800 text-text-white placeholder:text-text-secondary' : ''}`}
                 required
               />
@@ -127,6 +154,24 @@ const RegisterPage = () => {
                 {isHiddenPass ? <FaEye size={18} /> : <FaEyeSlash size={18} />}
               </button>
             </div>
+            {password.length > 0 && (
+              <div className="mt-3 space-y-2 text-sm">
+                {[
+                  { key: 'length', label: 'At least 6 characters' },
+                  { key: 'uppercase', label: 'One uppercase letter' },
+                  { key: 'lowercase', label: 'One lowercase letter' },
+                ].map((item) => (
+                  <div key={item.key} className="flex items-center gap-2">
+                    <span className={passwordValidations[item.key] ? 'text-theme-primary' : 'text-red-400'}>
+                      {passwordValidations[item.key] ? '✓' : '✕'}
+                    </span>
+                    <span className={passwordValidations[item.key] ? 'text-text-primary' : 'text-text-primary/70'}>
+                      {item.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* submit */}

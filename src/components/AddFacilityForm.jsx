@@ -135,6 +135,7 @@ const AddFacilityForm = ({ addFacility, updateFacility, facility }) => {
         if (!isUpdateMode) {
             submitData.createdAt = date;
             submitData.updatedAt = date;
+            submitData.bookingCount = 0;
             submitData.rating = parseFloat((Math.random() * 0.5 + 4.4).toFixed(1));
             submitData.ratedBy = Math.floor(Math.random() * 61) + 64;
         } else {

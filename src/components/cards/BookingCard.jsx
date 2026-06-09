@@ -6,16 +6,22 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
+import { useContext } from 'react'
+import { ThemeContext } from '@/context/theme-context'
+import Link from 'next/link';
+
+
 const BookingCard = ({ booking, updateBooking }) => {
+    const { theme } = useContext(ThemeContext)
     const router = useRouter();
     return (
         <div>
             {/* booking card */}
-            <div className="group bg-foreground rounded-xl  border  hover:border-green-700 transition-all duration-300 p-6 flex gap-4  flex-col md:flex-row md:items-center md: justify-between">
+            <div className={`group bg-foreground rounded-xl  border  hover:border-green-700 transition-all duration-300 p-6 flex gap-4  flex-col md:flex-row md:items-center md:justify-between ${theme === 'light' ? 'border-zinc-100' : 'border-zinc-900'}`}>
                 {/* left content */}
                 <div className='flex gap-4 flex-col md:flex-row'>
                     {/* Thumbnail Image */}
-                    <div className="w-full h-50 md:w-30 md:h-30 rounded-xl overflow-hidden   transition-all duration-300">
+                    <Link href={`/all-facilities/${booking.facilityId}`} className="w-full h-50 md:w-30 md:h-30 rounded-xl overflow-hidden   transition-all duration-300">
                         <Image
                             src={booking.facilityImage}
                             alt={booking.facilityName}
@@ -23,15 +29,17 @@ const BookingCard = ({ booking, updateBooking }) => {
                             height={300}
                             className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
                         />
-                    </div>
+                    </Link>
 
                     {/* Details Content */}
                     <div className="flex flex-col gap-4 ">
                         {/* Title and Status Badge */}
                         <div className="flex flex-col md:flex-row  gap-3">
-                            <h2 className="text-2xl font-semibold text-text-primary leading-tight truncate">
+                            <Link href={`/all-facilities/${booking.facilityId}`}>
+                            <h3 className="text-2xl font-semibold text-text-primary hover:text-theme-primary transition-colors duration-300 truncate">
                                 {booking.facilityName}
-                            </h2>
+                            </h3>
+                            </Link>
                             <span className={`badge ${booking.status === 'pending' ? 'badge-warning' : 'badge-error'} badge-lg font-semibold uppercase tracking-[0.2em] px-3 py-1 text-sm border-none shadow-sm`}>
                                 {booking.status}
                             </span>

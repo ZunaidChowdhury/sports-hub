@@ -57,7 +57,7 @@ const LogInPage = () => {
           }
         </div>
 
-        <div className="divider text-xs text-base-content/40 uppercase">or</div>
+        <div className={`divider  text-xs uppercase  text-text-primary/50 ${isDark ? 'before:bg-white/30 after:bg-white/30' : ''}`} >or</div>
 
         {/* Registration Form using Server Action */}
         <form onSubmit={handleLogin} className="space-y-4">

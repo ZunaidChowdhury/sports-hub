@@ -23,6 +23,8 @@ const BookingForm = ({ facility, addBooking }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
+    const minBookingDate = new Date().toISOString().split('T')[0];
+
     // Price Calculation
     const totalPrice = facility.pricePerHour * duration;
 
@@ -39,25 +41,31 @@ const BookingForm = ({ facility, addBooking }) => {
             return;
         }
 
+        const selectedDate = new Date(bookingDate + 'T00:00:00');
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+            setError("Can't book in the past.");
+            return;
+        }
+
         const bookingPayload = {
             facilityId: facility._id,
             facilityName: facility.facilityName,
-            userEmail: user.email,
             bookingDate,
             timeSlot,
             hours: duration,
             totalPrice,
             status: 'pending',
             facilityImage: facility.imageUpload,
-            facilityLocation: facility.location,
-            createdAt: new Date().toISOString()
+            facilityLocation: facility.location,                        
         };
 
         setLoading(true);
 
         try {
             const response = await addBooking(bookingPayload);
-            console.log('booking/success/response: ', response)
             if (response?.data.insertedId) {
                 setBookingDate('');
                 setTimeSlot('');
@@ -106,6 +114,7 @@ const BookingForm = ({ facility, addBooking }) => {
                     <input
                         type="date"
                         value={bookingDate}
+                        min={minBookingDate}
                         onChange={(e) => setBookingDate(e.target.value)}
                         required
                         className={inputStyle}

@@ -1,9 +1,19 @@
 import BookingForm from '@/components/ui/forms/BookingForm';
 import { addBooking } from '@/lib/actions';
-import { getSpecificFacility } from '@/lib/data';
+import { getFacilities, getSpecificFacility } from '@/lib/data';
 import { ImPriceTags } from 'react-icons/im';
 import { LuClock4 } from 'react-icons/lu';
 import { MdOutlineLocationOn, MdOutlinePeopleAlt } from 'react-icons/md';
+
+export async function generateStaticParams() {
+    const allFacilities = await getFacilities();
+    return allFacilities.map(facility => ({
+        id: facility._id.toString(),
+    }));
+}
+
+// Revalidate this page every hour (in seconds)
+export const revalidate = 3600;
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;

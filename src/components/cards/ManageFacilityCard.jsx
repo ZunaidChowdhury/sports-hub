@@ -9,14 +9,17 @@ import { deleteFacility } from '@/lib/actions';
 
 import { useContext } from 'react'
 import { ThemeContext } from '@/context/theme-context'
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function ManageFacilityCard({ facility }) {
-    const { theme } = useContext(ThemeContext)
+    const { theme } = useContext(ThemeContext);
+    const router = useRouter();
 
     return (
         <div>
             {/* card */}
-            <div className={`group bg-foreground rounded-xl shadow-md border border-zinc-100 hover:border-green-700 transition-all duration-300 p-6 flex gap-4  flex-col md:flex-row md:items-center md:justify-between ${theme === 'light' ? 'border-zinc-100' : 'border-zinc-900'}`}>
+            <div className={`group bg-foreground rounded-xl shadow-md border hover:border-green-700 transition-all duration-300 p-6 flex gap-4  flex-col md:flex-row md:items-center md:justify-between ${theme === 'light' ? 'border-zinc-100' : 'border-zinc-900'}`}>
                 {/* Left Section: Image and Details */}
                 <div className='flex gap-4 flex-col md:flex-row'>
                     {/* Thumbnail Image */}
@@ -96,7 +99,13 @@ export default function ManageFacilityCard({ facility }) {
                             {/* if there is a button in form, it will close the modal */}
                             <button
                                 className="btn text-white bg-red-600 hover:bg-red-700 border-none shadow-none transition-colors duration-300"
-                                onClick={() => deleteFacility(facility._id)}
+                                onClick={async () => {
+                                    const data = await deleteFacility(facility._id)
+                                    if(data.deletedCount > 0){
+                                        router.refresh();
+                                        toast.success(`${facility.facilityName} deleted successfully.`);
+                                    }
+                                }}
                             >
                                 Yes, Delete
                             </button>

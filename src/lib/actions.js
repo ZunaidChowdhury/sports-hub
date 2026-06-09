@@ -8,13 +8,18 @@ import { headers } from "next/headers";
 
 export const addFacility = async (formData) => {
 
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+
     try {
         // const newFacility = Object.fromEntries(formData);
         const newFacility = formData;
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/facilities`, {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(newFacility)
         });
@@ -67,7 +72,6 @@ export const updateFacility = async (formData) => {
         }
         return { success: false, error: 'Could not update facility' };
     } catch (error) {
-        console.log('Could not update facility, error: ', error);
         return { success: false, error: 'Could not update facility.' };
     }
 }
@@ -87,11 +91,11 @@ export const deleteFacility = async (facilityId) => {
         },
     });
     const data = await res.json();
-    console.log('deleteFacility/data: ', data)
-    if (data.deletedCount > 0) {
-        console.log('deleteFacility/deletedCount: ', data.deletedCount)
-        revalidatePath('/manage-facilities');
-    }
+    // console.log('deleteFacility/data: ', data)
+    // if (data.deletedCount > 0) {
+    //     console.log('deleteFacility/deletedCount: ', data.deletedCount)
+    //     revalidatePath('/manage-facilities');
+    // }
     return data;
 }
 
@@ -117,7 +121,6 @@ export const addBooking = async (formData) => {
 
 
         const data = await res.json();
-        console.log('client/actoins/data: ', data)
 
 
         // if (data.insertedId) {
@@ -126,7 +129,6 @@ export const addBooking = async (formData) => {
         return { success: true, data };
     }
     catch (error) {
-        console.log('Could not add booking, error: ', error);
         return { success: false, error: 'Could not add booking.' };
     }
 
@@ -150,7 +152,7 @@ export const updateBooking = async (formData) => {
         body: JSON.stringify(updatedBooking)
     });
 
-    
+
     const data = await res.json();
     // console.log('client/actions/updateBooking/data: ', data)
 
